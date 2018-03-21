@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.adafruit.bluefruit.le.connect.R;
@@ -15,6 +16,7 @@ import com.adafruit.bluefruit.le.connect.ble.BleManager;
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.SaturationBar;
 import com.larswerkman.holocolorpicker.ValueBar;
+import com.zerokol.views.JoystickView;
 
 import java.nio.ByteBuffer;
 
@@ -49,12 +51,7 @@ public class ColorPickerActivity extends UartInterfaceActivity implements ColorP
 
         SaturationBar mSaturationBar = (SaturationBar) findViewById(R.id.saturationbar);
         ValueBar mValueBar = (ValueBar) findViewById(R.id.valuebar);
-        mColorPicker = (ColorPicker) findViewById(R.id.colorPicker);
-        if (mColorPicker != null) {
-            mColorPicker.addSaturationBar(mSaturationBar);
-            mColorPicker.addValueBar(mValueBar);
-            mColorPicker.setOnColorChangedListener(this);
-        }
+
 
         if (kPersistValues) {
             SharedPreferences preferences = getSharedPreferences(kPreferences, Context.MODE_PRIVATE);
@@ -63,12 +60,54 @@ public class ColorPickerActivity extends UartInterfaceActivity implements ColorP
             mSelectedColor = kFirstTimeColor;
         }
 
-        mColorPicker.setOldCenterColor(mSelectedColor);
-        mColorPicker.setColor(mSelectedColor);
         onColorChanged(mSelectedColor);
 
         // Start services
         onServicesDiscovered();
+
+        Button b;
+
+        b.setEnabled(false);
+
+
+        JoystickView joy = findViewById(R.id.colorPicker);
+
+        joy.setOnJoystickMoveListener(new com.zerokol.views.JoystickView.OnJoystickMoveListener() {
+
+            @Override
+            public void onValueChanged(int angle, int power, int direction) {
+
+                Log.v("POWER", String.format("%d", power));
+                Log.v("ANGLE", String.format("%d", angle));
+                switch (direction) {
+                    case JoystickView.FRONT:
+                        Log.v("", "FRONT");
+                        break;
+                    case JoystickView.FRONT_RIGHT:
+                        Log.v("", "FRONT_RIGHT");
+                        break;
+                    case JoystickView.RIGHT:
+                        Log.v("", "RIGHT");
+                        break;
+                    case JoystickView.RIGHT_BOTTOM:
+                        Log.v("", "RIGHT_BOTTOM");
+                        break;
+                    case JoystickView.BOTTOM:
+                        Log.v("", "BOTTOM");
+                        break;
+                    case JoystickView.BOTTOM_LEFT:
+                        Log.v("", "BOTTOM_LEFT");
+                        break;
+                    case JoystickView.LEFT:
+                        Log.v("", "LEFT");
+                        break;
+                    case JoystickView.LEFT_FRONT:
+                        Log.v("", "LEFT_FRONT");
+                        break;
+                    default:
+                }
+            }
+        }, JoystickView.DEFAULT_LOOP_INTERVAL);
     }
 
     @Override

@@ -14,11 +14,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.larswerkman.holocolorpicker.ColorPicker
-            android:id="@+id/colorPicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
+
+            <com.zerokol.views.JoystickView
+                android:id="@+id/colorPicker"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Button" />
+        </LinearLayout>
 
         <com.larswerkman.holocolorpicker.SaturationBar
             android:id="@+id/saturationbar"
